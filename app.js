@@ -43,10 +43,6 @@ app.get('/api/v1/tours/:id', (request, response) => {
       }
     })
   }
-  // response.status(200).json({
-  //   message: "Data is available 👍",
-  //   data: toursObj
-  // });
 })
 
 // POST api/v1/tours
@@ -67,6 +63,10 @@ app.post('/api/v1/tours', (request, response) => {
       )
     })
 })
+
+// PATCH api/v1/tours/:id
+
+// DELETE api/v1/tours/:id
 
 app.listen(PORT, HOST_NAME, () => { console.log(`Server started at http://${HOST_NAME}:${PORT}`) });
 
