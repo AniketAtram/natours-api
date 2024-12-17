@@ -15,17 +15,14 @@ const tours = fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'u
 const toursObj = JSON.parse(tours);
 
 
-// GET api/v1/tours
-app.get('/api/v1/tours', (request, response) => {
+const getAllTours = (request, response) => {
   response.status(200).json({
     message: "Data is available 👍",
     data: toursObj
   });
-})
+}
 
-
-// GET api/v1/tours/:id
-app.get('/api/v1/tours/:id', (request, response) => {
+const getTourById = (request, response) => {
   const id = request.params.id * 1 // converting string to number
   const tour = toursObj.find(el => el.id === id);
   if (!tour) {
@@ -43,10 +40,9 @@ app.get('/api/v1/tours/:id', (request, response) => {
       }
     })
   }
-})
+}
 
-// POST api/v1/tours
-app.post('/api/v1/tours', (request, response) => {
+const addNewTour = (request, response) => {
   const newId = toursObj[toursObj.length - 1].id + 1 // create a new id
   const newTour = Object.assign({ id: newId }, request.body);
   toursObj.push(newTour);
@@ -62,27 +58,36 @@ app.post('/api/v1/tours', (request, response) => {
         }
       )
     })
-})
+}
 
-// PATCH api/v1/tours/:id
-app.patch('/api/v1/tours/:id', (request, response)=>{
+const editTour = (request, response)=>{
   response.status(200).json(
     {
       status: "Success",
       message: `Patch request for id:${request.params.id} called successfully`
     }
   )
-})
+}
 
-// DELETE api/v1/tours/:id
-app.delete('/api/v1/tours/:id', (request, response)=>{
+const deleteTour =  (request, response)=>{
   response.status(200).json(
     {
       status: "Success",
       message: `Delete request for id:${request.params.id} called successfully`
     }
   )
-})
+}
+
+// GET api/v1/tours
+app.get('/api/v1/tours', getAllTours)
+// GET api/v1/tours/:id
+app.get('/api/v1/tours/:id', getTourById)
+// POST api/v1/tours
+app.post('/api/v1/tours', addNewTour)
+// PATCH api/v1/tours/:id
+app.patch('/api/v1/tours/:id', editTour)
+// DELETE api/v1/tours/:id
+app.delete('/api/v1/tours/:id', deleteTour)
 
 app.listen(PORT, HOST_NAME, () => { console.log(`Server started at http://${HOST_NAME}:${PORT}`) });
 
