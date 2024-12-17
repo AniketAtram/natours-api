@@ -94,8 +94,56 @@ const deleteTour =  (request, response)=>{
 }
 
 
+const getAllUsers = (request, response)=>{
+  response.status(500).json(
+    {
+      status: "ERROR",
+      message: `This route is not available yet!`
+    }
+  )
+}
+
+const getUserById = (request, response)=>{
+  response.status(500).json(
+    {
+      status: "ERROR",
+      message: `This route is not available yet!`
+    }
+  )
+}
+
+const createNewUser = (request, response)=>{
+  response.status(500).json(
+    {
+      status: "ERROR",
+      message: `This route is not available yet!`
+    }
+  )
+}
+
+const editUser = (request, response)=>{
+  response.status(500).json(
+    {
+      status: "ERROR",
+      message: `This route is not available yet!`
+    }
+  )
+}
+
+const deleteUser = (request, response)=>{
+  response.status(500).json(
+    {
+      status: "ERROR",
+      message: `This route is not available yet!`
+    }
+  )
+}
+
 app.route('/api/v1/tours').get(getAllTours).post(addNewTour)
 app.route('/api/v1/tours/:id').get(getTourById).patch(editTour).delete(deleteTour)
+
+app.route('/api/v1/users').get(getAllUsers).post(createNewUser)
+app.route('/api/v1/users/:id').get(getUserById).patch(editUser).delete(deleteUser)
 
 app.listen(PORT, HOST_NAME, () => { console.log(`Server started at http://${HOST_NAME}:${PORT}`) });
 
