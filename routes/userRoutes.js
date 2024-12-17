@@ -1,52 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const usersController = require('./../controllers/usersController')
 
-const getAllUsers = (request, response)=>{
-  response.status(500).json(
-    {
-      status: "ERROR",
-      message: `This route is not available yet!`
-    }
-  )
-}
-
-const getUserById = (request, response)=>{
-  response.status(500).json(
-    {
-      status: "ERROR",
-      message: `This route is not available yet!`
-    }
-  )
-}
-
-const createNewUser = (request, response)=>{
-  response.status(500).json(
-    {
-      status: "ERROR",
-      message: `This route is not available yet!`
-    }
-  )
-}
-
-const editUser = (request, response)=>{
-  response.status(500).json(
-    {
-      status: "ERROR",
-      message: `This route is not available yet!`
-    }
-  )
-}
-
-const deleteUser = (request, response)=>{
-  response.status(500).json(
-    {
-      status: "ERROR",
-      message: `This route is not available yet!`
-    }
-  )
-}
-
-router.route('/').get(getAllUsers).post(createNewUser)
-router.route('/:id').get(getUserById).patch(editUser).delete(deleteUser)
+router.route('/').get(usersController.getAllUsers).post(usersController.createNewUser)
+router.route('/:id').get(usersController.getUserById).patch(usersController.editUser).delete(usersController.deleteUser)
 
 module.exports = router;
