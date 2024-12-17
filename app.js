@@ -139,11 +139,18 @@ const deleteUser = (request, response)=>{
   )
 }
 
-app.route('/api/v1/tours').get(getAllTours).post(addNewTour)
-app.route('/api/v1/tours/:id').get(getTourById).patch(editTour).delete(deleteTour)
+// Routes
+const toursRouter = express.Router();
+const usersRouter = express.Router();
 
-app.route('/api/v1/users').get(getAllUsers).post(createNewUser)
-app.route('/api/v1/users/:id').get(getUserById).patch(editUser).delete(deleteUser)
+toursRouter.route('/').get(getAllTours).post(addNewTour)
+toursRouter.route('/:id').get(getTourById).patch(editTour).delete(deleteTour)
+
+usersRouter.route('/').get(getAllUsers).post(createNewUser)
+usersRouter.route('/:id').get(getUserById).patch(editUser).delete(deleteUser)
+
+app.use('/api/v1/tours', toursRouter);
+app.use('/api/v1/users', usersRouter);
 
 app.listen(PORT, HOST_NAME, () => { console.log(`Server started at http://${HOST_NAME}:${PORT}`) });
 
