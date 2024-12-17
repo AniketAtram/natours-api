@@ -78,16 +78,9 @@ const deleteTour =  (request, response)=>{
   )
 }
 
-// GET api/v1/tours
-app.get('/api/v1/tours', getAllTours)
-// GET api/v1/tours/:id
-app.get('/api/v1/tours/:id', getTourById)
-// POST api/v1/tours
-app.post('/api/v1/tours', addNewTour)
-// PATCH api/v1/tours/:id
-app.patch('/api/v1/tours/:id', editTour)
-// DELETE api/v1/tours/:id
-app.delete('/api/v1/tours/:id', deleteTour)
+
+app.route('/api/v1/tours').get(getAllTours).post(addNewTour)
+app.route('/api/v1/tours/:id').get(getTourById).patch(editTour).delete(deleteTour)
 
 app.listen(PORT, HOST_NAME, () => { console.log(`Server started at http://${HOST_NAME}:${PORT}`) });
 
