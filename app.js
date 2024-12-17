@@ -65,8 +65,24 @@ app.post('/api/v1/tours', (request, response) => {
 })
 
 // PATCH api/v1/tours/:id
+app.patch('/api/v1/tours/:id', (request, response)=>{
+  response.status(200).json(
+    {
+      status: "Success",
+      message: `Patch request for id:${request.params.id} called successfully`
+    }
+  )
+})
 
 // DELETE api/v1/tours/:id
+app.delete('/api/v1/tours/:id', (request, response)=>{
+  response.status(200).json(
+    {
+      status: "Success",
+      message: `Delete request for id:${request.params.id} called successfully`
+    }
+  )
+})
 
 app.listen(PORT, HOST_NAME, () => { console.log(`Server started at http://${HOST_NAME}:${PORT}`) });
 
