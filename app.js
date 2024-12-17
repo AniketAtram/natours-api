@@ -3,14 +3,28 @@ HOST_NAME = '127.0.0.1';
 
 const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 
 // use middleware to read request body
 app.use(express.json());
+app.use(morgan('dev'));
+
+
+
+// custom middlewares
+app.use((request, response, next)=>{
+  console.log('Hello from middleware 👋');
+  next();
+})
+
+app.use((request, response, next)=>{
+  request.requestedTime = new Date().toISOString();
+  next();
+})
 
 // Get all the tours from json file
-
 const tours = fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8');
 const toursObj = JSON.parse(tours);
 
@@ -18,6 +32,7 @@ const toursObj = JSON.parse(tours);
 const getAllTours = (request, response) => {
   response.status(200).json({
     message: "Data is available 👍",
+    requestedAt: request.requestedTime,
     data: toursObj
   });
 }
