@@ -4,6 +4,17 @@ const fs = require('fs');
 const tours = fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`, 'utf-8');
 const toursObj = JSON.parse(tours);
 
+// middleware to check if the id is valid
+exports.chekIfIdIsValid = (request, response, next, value) => {
+  const id = request.params.id * 1 // converting string to number
+  if (toursObj.length - 1 < id) {
+    return response.status(404).send({
+      status: "failure",
+      message: "Tour not found!"
+    })
+  }
+  next();
+}
 
 exports.getAllTours = (request, response) => {
   response.status(200).json({
@@ -16,21 +27,30 @@ exports.getAllTours = (request, response) => {
 exports.getTourById = (request, response) => {
   const id = request.params.id * 1 // converting string to number
   const tour = toursObj.find(el => el.id === id);
-  if (!tour) {
-    response.status(404).send({
-      status: "failure",
-      message: "Tour not found!"
-    })
-  }
-  else {
-    response.status(200).send({
-      status: "success",
-      message: "Tour found!",
-      data: {
-        tour
-      }
-    })
-  }
+  response.status(200).send({
+    status: "success",
+    message: "Tour found!",
+    data: {
+      tour
+    }
+  })
+  // const id = request.params.id * 1 // converting string to number
+  // const tour = toursObj.find(el => el.id === id);
+  // if (!tour) {
+  //   response.status(404).send({
+  //     status: "failure",
+  //     message: "Tour not found!"
+  //   })
+  // }
+  // else {
+  //   response.status(200).send({
+  //     status: "success",
+  //     message: "Tour found!",
+  //     data: {
+  //       tour
+  //     }
+  //   })
+  // }
 }
 
 exports.addNewTour = (request, response) => {
@@ -51,7 +71,7 @@ exports.addNewTour = (request, response) => {
     })
 }
 
-exports.editTour = (request, response)=>{
+exports.editTour = (request, response) => {
   response.status(200).json(
     {
       status: "Success",
@@ -60,7 +80,7 @@ exports.editTour = (request, response)=>{
   )
 }
 
-exports.deleteTour =  (request, response)=>{
+exports.deleteTour = (request, response) => {
   response.status(200).json(
     {
       status: "Success",
