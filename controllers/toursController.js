@@ -7,10 +7,22 @@ const toursObj = JSON.parse(tours);
 // middleware to check if the id is valid
 exports.chekIfIdIsValid = (request, response, next, value) => {
   const id = request.params.id * 1 // converting string to number
-  if (toursObj.length - 1 < id) {
+  if (toursObj.length < id) {
     return response.status(404).send({
       status: "failure",
       message: "Tour not found!"
+    })
+  }
+  next();
+}
+
+// Middleware to check if the name and price is present in the body
+exports.checkBody = (request, response, next)=>{
+  const {name, price} = request.body;
+  if(!name || !price){
+    return response.status(400).send({
+      status: "failure",
+      message: "Missing name or price"
     })
   }
   next();
